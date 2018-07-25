@@ -45,7 +45,7 @@ class Format
      */
     public function percentage($value, $places = 0)
     {
-        return $this->number($value, $places) .'%';
+        return $this->number(100 * $value, $places) .'%';
     }
 
     /**
