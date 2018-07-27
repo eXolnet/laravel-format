@@ -93,4 +93,25 @@ class Format
     {
         //
     }
+
+    /**
+     * @param int $value
+     * @return string
+     */
+    public function memory($bytes)
+    {
+        if ($bytes >= 1024 * 1024 * 1024) {
+            return sprintf('%.1f GiB', $bytes / 1024 / 1024 / 1024);
+        }
+
+        if ($bytes >= 1024 * 1024) {
+            return sprintf('%.1f MiB', $bytes / 1024 / 1024);
+        }
+
+        if ($bytes >= 1024) {
+            return sprintf('%d KiB', $bytes / 1024);
+        }
+
+        return sprintf('%d B', $bytes);
+    }
 }
