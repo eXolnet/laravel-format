@@ -115,6 +115,15 @@ class Format
 
         return $numerator .'/'. $denominator;
     }
+
+    /**
+     * @param float $value
+     * @param int $places
+     * @return string
+     */
+    public function scientific($value, $places = 2)
+    {
+        return sprintf('%.'. (int)$places .'E', $value);
     }
 
     /**
