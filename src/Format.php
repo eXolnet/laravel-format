@@ -35,7 +35,13 @@ class Format
      */
     public function accounting($value, $places = 2)
     {
-        return $this->currency($value, $places);
+        $formattedValue = $this->number($value, $places);
+
+        if ($formattedValue < 0) {
+            return '('. $formattedValue .')';
+        }
+
+        return $formattedValue;
     }
 
     /**
