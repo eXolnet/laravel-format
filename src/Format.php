@@ -84,20 +84,37 @@ class Format
 
     /**
      * @param float $value
+     * @param int $denominator
      * @return string
      */
-    public function fraction($value)
+    public function fraction($value, $denominator)
     {
-        //
+        $numerator = round($value * $denominator);
+
+        return $numerator .'/'. $denominator;
     }
 
     /**
      * @param float $value
+     * @param int $denominator
      * @return string
      */
-    public function scientific($value)
+    public function fractionSimplified($value, $denominator = 1000)
     {
-        //
+        $numerator = round($value * $denominator);
+
+        // Simplify the fraction
+        $greatestCommonDivisor = $this->calculateGreatestCommonDivisor($numerator, $denominator);
+
+        $numerator   /= $greatestCommonDivisor;
+        $denominator /= $greatestCommonDivisor;
+
+        if ($denominator === 1) {
+            return $numerator;
+        }
+
+        return $numerator .'/'. $denominator;
+    }
     }
 
     /**
@@ -119,5 +136,14 @@ class Format
         }
 
         return sprintf('%d B', $bytes);
+
+    /**
+     * @param int $a
+     * @param int $b
+     * @return int
+     */
+    protected function calculateGreatestCommonDivisor($a, $b)
+    {
+        return $b ? $this->calculateGreatestCommonDivisor($b, $a % $b) : $a;
     }
 }
