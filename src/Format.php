@@ -130,21 +130,22 @@ class Format
      * @param int $value
      * @return string
      */
-    public function memory($bytes)
+    public function memory($value)
     {
-        if ($bytes >= 1024 * 1024 * 1024) {
-            return sprintf('%.1f GiB', $bytes / 1024 / 1024 / 1024);
+        if ($value >= 1024 * 1024 * 1024) {
+            return sprintf('%.1f GiB', $value / 1024 / 1024 / 1024);
         }
 
-        if ($bytes >= 1024 * 1024) {
-            return sprintf('%.1f MiB', $bytes / 1024 / 1024);
+        if ($value >= 1024 * 1024) {
+            return sprintf('%.1f MiB', $value / 1024 / 1024);
         }
 
-        if ($bytes >= 1024) {
-            return sprintf('%d KiB', $bytes / 1024);
+        if ($value >= 1024) {
+            return sprintf('%d KiB', $value / 1024);
         }
 
-        return sprintf('%d B', $bytes);
+        return sprintf('%d B', $value);
+    }
 
     /**
      * @param int $a
