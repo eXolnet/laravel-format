@@ -3,6 +3,7 @@
 [![Latest Stable Version](https://poser.pugx.org/eXolnet/laravel-format/v/stable?format=flat-square)](https://packagist.org/packages/eXolnet/laravel-format)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/eXolnet/laravel-format/master.svg?style=flat-square)](https://travis-ci.org/eXolnet/laravel-format)
+[![StyleCI](https://github.styleci.io/repos/142356704/shield?branch=master)](https://github.styleci.io/repos/142356704)
 [![Total Downloads](https://img.shields.io/packagist/dt/eXolnet/laravel-format.svg?style=flat-square)](https://packagist.org/packages/eXolnet/laravel-format)
 
 Utility class to format values for display.
