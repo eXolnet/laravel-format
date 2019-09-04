@@ -2,7 +2,7 @@
 
 namespace Exolnet\Format;
 
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 
 class Format
 {
