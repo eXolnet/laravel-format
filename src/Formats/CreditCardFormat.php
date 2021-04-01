@@ -42,7 +42,7 @@ class CreditCardFormat extends Format
 
         if ($this->hidden) {
             $hidden = str_repeat('x', strlen($number) - 4);
-            $number = substr_replace ($number, $hidden, 0, strlen($hidden));
+            $number = substr_replace($number, $hidden, 0, strlen($hidden));
         }
 
         return wordwrap($number, 4, ' ', true);
