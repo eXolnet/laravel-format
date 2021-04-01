@@ -2,158 +2,236 @@
 
 namespace Exolnet\Format;
 
-use Illuminate\Support\Carbon;
+use Exolnet\Format\Formats\AccountingFormat;
+use Exolnet\Format\Formats\CreditCardFormat;
+use Exolnet\Format\Formats\DateFormat;
+use Exolnet\Format\Formats\DateTimeFormat;
+use Exolnet\Format\Formats\DurationFormat;
+use Exolnet\Format\Formats\FractionFormat;
+use Exolnet\Format\Formats\MemoryFormat;
+use Exolnet\Format\Formats\MoneyFormat;
+use Exolnet\Format\Formats\NullFormat;
+use Exolnet\Format\Formats\NumberFormat;
+use Exolnet\Format\Formats\PercentageFormat;
+use Exolnet\Format\Formats\PeriodFormat;
+use Exolnet\Format\Formats\PhoneFormat;
+use Exolnet\Format\Formats\RatioFormat;
+use Exolnet\Format\Formats\ScientificFormat;
+use Exolnet\Format\Formats\SiFormat;
+use Exolnet\Format\Formats\SocialInsuranceNumberFormat;
+use Exolnet\Format\Formats\TextFormat;
+use Exolnet\Format\Formats\TimeFormat;
+use Illuminate\Support\Traits\Macroable;
 
 class Format
 {
-    /**
-     * @param float $value
-     * @param int $places
-     * @return string
-     */
-    public function number($value, $places = 0)
-    {
-        $locale = localeconv();
-
-        return number_format($value, $places, $locale['decimal_point'], $locale['thousands_sep']);
-    }
+    use Macroable;
 
     /**
      * @param float $value
      * @param int $places
-     * @return string
+     * @return \Exolnet\Format\Formats\AccountingFormat
      */
-    public function currency($value, $places = 2)
+    public function accounting(float $value, int $places = 2): AccountingFormat
     {
-        return money_format('%.'. $places .'n', $value);
+        return new AccountingFormat($value, $places);
     }
 
     /**
-     * @param float $value
-     * @param int $places
-     * @return string
+     * @param string $number
+     * @return \Exolnet\Format\Formats\CreditCardFormat
      */
-    public function accounting($value, $places = 2)
+    public function creditCard(string $number): CreditCardFormat
     {
-        $formattedValue = $this->number($value, $places);
-
-        if ($formattedValue < 0) {
-            return '('. $formattedValue .')';
-        }
-
-        return $formattedValue;
+        return new CreditCardFormat($number);
     }
 
     /**
-     * @param float $value
-     * @param int $places
-     * @return string
+     * @param \DateTime|string|int|null $time
+     * @param \DateTimeZone|string|null $tz
+     * @return \Exolnet\Format\Formats\DateFormat
      */
-    public function percentage($value, $places = 0)
+    public function date($time = null, $tz = null): DateFormat
     {
-        return $this->number(100 * $value, $places) .'%';
+        return new DateFormat($time, $tz);
     }
 
     /**
-     * @param \Datetime|string $value
-     * @return string
+     * @param \DateTime|string|int|null $time
+     * @param \DateTimeZone|string|null $tz
+     * @return \Exolnet\Format\Formats\DateTimeFormat
      */
-    public function date($value)
+    public function datetime($time = null, $tz = null): DateTimeFormat
     {
-        return Carbon::parse($value)->toDateString();
+        return new DateTimeFormat($time, $tz);
     }
 
     /**
-     * @param \Datetime|string $value
-     * @return string
+     * @param \DateInterval|string $duration
+     * @return \Exolnet\Format\Formats\DurationFormat
      */
-    public function time($value)
+    public function duration($duration): DurationFormat
     {
-        return Carbon::parse($value)->toTimeString();
+        return new DurationFormat($duration);
     }
 
     /**
-     * @param \Datetime|string $value
-     * @param string $glue
-     * @return string
+     * @param mixed $value
+     * @return \Exolnet\Format\FormatBuilder
      */
-    public function dateTime($value, $glue = ' ')
+    public function value($value): FormatBuilder
     {
-        return $this->date($value) . $glue . $this->time($value);
+        return new FormatBuilder($value);
     }
 
     /**
      * @param float $value
      * @param int $denominator
-     * @return string
+     * @return \Exolnet\Format\Formats\FractionFormat
      */
-    public function fraction($value, $denominator)
+    public function fraction(float $value, int $denominator): FractionFormat
     {
-        $numerator = round($value * $denominator);
-
-        return $numerator .'/'. $denominator;
+        return new FractionFormat($value, $denominator);
     }
 
     /**
-     * @param float $value
-     * @param int $denominator
-     * @return string
+     * @param int $octets
+     * @return \Exolnet\Format\Formats\MemoryFormat
      */
-    public function fractionSimplified($value, $denominator = 1000)
+    public function memory(int $octets): MemoryFormat
     {
-        $numerator = round($value * $denominator);
-
-        // Simplify the fraction
-        $greatestCommonDivisor = $this->calculateGreatestCommonDivisor($numerator, $denominator);
-
-        $numerator   /= $greatestCommonDivisor;
-        $denominator /= $greatestCommonDivisor;
-
-        if ($denominator === 1) {
-            return $numerator;
-        }
-
-        return $numerator .'/'. $denominator;
+        return new MemoryFormat($octets);
     }
 
     /**
      * @param float $value
      * @param int $places
-     * @return string
+     * @return \Exolnet\Format\Formats\MoneyFormat
      */
-    public function scientific($value, $places = 2)
+    public function money(float $value, int $places = 2): MoneyFormat
     {
-        return sprintf('%.'. (int)$places .'E', $value);
+        return new MoneyFormat($value, $places);
     }
 
     /**
-     * @param int $value
-     * @return string
+     * @param string $emptyText
+     * @return \Exolnet\Format\Formats\NullFormat
      */
-    public function memory($value)
+    public function null(string $emptyText = ''): NullFormat
     {
-        if ($value >= 1024 * 1024 * 1024) {
-            return sprintf('%.1f GiB', $value / 1024 / 1024 / 1024);
-        }
-
-        if ($value >= 1024 * 1024) {
-            return sprintf('%.1f MiB', $value / 1024 / 1024);
-        }
-
-        if ($value >= 1024) {
-            return sprintf('%d KiB', $value / 1024);
-        }
-
-        return sprintf('%d B', $value);
+        return new NullFormat($emptyText);
     }
 
     /**
-     * @param int $a
-     * @param int $b
-     * @return int
+     * @param float $value
+     * @param int $places
+     * @return \Exolnet\Format\Formats\NumberFormat
      */
-    protected function calculateGreatestCommonDivisor($a, $b)
+    public function number(float $value, int $places = 2): NumberFormat
     {
-        return $b ? $this->calculateGreatestCommonDivisor($b, $a % $b) : $a;
+        return new NumberFormat($value, $places);
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $emptyText
+     * @return \Exolnet\Format\FormatBuilder|\Exolnet\Format\Formats\NullFormat
+     */
+    public function optional($value, string $emptyText = '')
+    {
+        if ($value === null) {
+            return $this->null($emptyText);
+        }
+
+        return $this->value($value);
+    }
+
+    /**
+     * @param float $value
+     * @param int $places
+     * @return \Exolnet\Format\Formats\PercentageFormat
+     */
+    public function percentage(float $value, int $places = 0): PercentageFormat
+    {
+        return new PercentageFormat($value, $places);
+    }
+
+    /**
+     * @param \DateTime|string|int|null $from
+     * @param \DateTime|string|int|null $to
+     * @return \Exolnet\Format\Formats\PeriodFormat
+     */
+    public function period($from, $to): PeriodFormat
+    {
+        return new PeriodFormat($from, $to);
+    }
+
+    /**
+     * @param string $phone
+     * @return \Exolnet\Format\Formats\PhoneFormat
+     */
+    public function phone(string $phone): PhoneFormat
+    {
+        return new PhoneFormat($phone);
+    }
+
+    /**
+     * @param float $value1
+     * @param float $value2
+     * @param int $places
+     * @return \Exolnet\Format\Formats\RatioFormat
+     */
+    public function ratio(float $value1, float $value2, int $places = 0): RatioFormat
+    {
+        return new RatioFormat($value1, $value2, $places);
+    }
+
+    /**
+     * @param float $value
+     * @param int $places
+     * @return \Exolnet\Format\Formats\ScientificFormat
+     */
+    public function scientific(float $value, int $places = 2): ScientificFormat
+    {
+        return new ScientificFormat($value, $places);
+    }
+
+    /**
+     * @param float $value
+     * @param string $units
+     * @param int $places
+     * @return \Exolnet\Format\Formats\SiFormat
+     */
+    public function si(float $value, string $units, int $places = 2): SiFormat
+    {
+        return new SiFormat($value, $units, $places);
+    }
+
+    /**
+     * @param string $number
+     * @return \Exolnet\Format\Formats\SocialInsuranceNumberFormat
+     */
+    public function socialInsuranceNumber(string $number): SocialInsuranceNumberFormat
+    {
+        return new SocialInsuranceNumberFormat($number);
+    }
+
+    /**
+     * @param string $text
+     * @return \Exolnet\Format\Formats\TextFormat
+     */
+    public function text(string $text): TextFormat
+    {
+        return new TextFormat($text);
+    }
+
+    /**
+     * @param \DateTime|string|int|null $time
+     * @param \DateTimeZone|string|null $tz
+     * @return \Exolnet\Format\Formats\TimeFormat
+     */
+    public function time($time = null, $tz = null): TimeFormat
+    {
+        return new TimeFormat($time, $tz);
     }
 }
