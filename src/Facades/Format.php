@@ -5,6 +5,7 @@ namespace Exolnet\Format\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
+ * @phpcs:disable Generic.Files.LineLength.TooLong
  * @method static \Exolnet\Format\Formats\AccountingFormat accounting(float $value, int $places = 2)
  * @method static \Exolnet\Format\Formats\CreditCardFormat creditCard(string $number)
  * @method static \Exolnet\Format\Formats\DateFormat date($time = null, $tz = null)
@@ -26,6 +27,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Exolnet\Format\Formats\SocialInsuranceNumberFormat socialInsuranceNumber(string $number)
  * @method static \Exolnet\Format\Formats\TextFormat text(string $text)
  * @method static \Exolnet\Format\Formats\TimeFormat time($time = null, $tz = null)
+ * @phpcs:enable
  *
  * @see \Exolnet\Format\Format
  */
