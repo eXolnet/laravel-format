@@ -57,7 +57,7 @@ class FractionFormat extends Format
     {
         $numerator = round($this->value * $this->denominator);
 
-        return $numerator .'/'. $this->denominator;
+        return $numerator . '/' . $this->denominator;
     }
 
     /**
@@ -78,7 +78,7 @@ class FractionFormat extends Format
             return $numerator;
         }
 
-        return $numerator .'/'. $denominator;
+        return $numerator . '/' . $denominator;
     }
 
     /**
