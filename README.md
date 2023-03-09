@@ -1,7 +1,7 @@
 # Laravel Format
 
 [![Latest Stable Version](https://poser.pugx.org/eXolnet/laravel-format/v/stable?format=flat-square)](https://packagist.org/packages/eXolnet/laravel-format)
-[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Build Status](https://img.shields.io/github/workflow/status/eXolnet/laravel-format/tests?label=tests&style=flat-square)](https://github.com/eXolnet/laravel-format/actions?query=workflow%3Atests)
 [![Total Downloads](https://img.shields.io/packagist/dt/eXolnet/laravel-format.svg?style=flat-square)](https://packagist.org/packages/eXolnet/laravel-format)
 
