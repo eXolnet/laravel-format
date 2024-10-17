@@ -3,9 +3,9 @@
 namespace Exolnet\Format\Tests\Integration;
 
 use Exolnet\Format\FormatServiceProvider;
-use Orchestra\Testbench\TestCase as Orchestra;
+use Orchestra\Testbench\TestCase as OrchestraTestCase;
 
-abstract class TestCase extends Orchestra
+abstract class TestCase extends OrchestraTestCase
 {
     /**
      * @param \Illuminate\Foundation\Application $app

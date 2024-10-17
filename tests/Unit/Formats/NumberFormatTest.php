@@ -25,7 +25,7 @@ class NumberFormatTest extends TestCase
     /**
      * @return array
      */
-    public function provideTestNumber()
+    public static function provideTestNumber()
     {
         return [
             [0.00, 0, '0'],
