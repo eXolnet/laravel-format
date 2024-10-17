@@ -18,13 +18,13 @@
     "require": {
         "php": "^8.1",
         "ext-intl": "*",
-        "illuminate/support": "^9.0"
+        "illuminate/support": "^10.0|^11.0"
     },
     "require-dev": {
         "giggsey/libphonenumber-for-php": "^8.12",
         "mockery/mockery": "^1.4",
-        "orchestra/testbench": "^7.0",
-        "phpunit/phpunit": "^9.3.3",
+        "orchestra/testbench": "^8.0|^9.0",
+        "phpunit/phpunit": "^10.5",
         "squizlabs/php_codesniffer": "^3.6"
     },
     "suggest": {
