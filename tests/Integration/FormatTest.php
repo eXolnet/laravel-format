@@ -37,7 +37,7 @@ class FormatTest extends TestCase
     /**
      * @return \Generator
      */
-    public function provideTestFormats(): Generator
+    public static function provideTestFormats(): Generator
     {
         yield [fn () => Format::text('foo'), 'foo'];
         yield [fn () => Format::accounting(-1234.56, 2), '($1,234.56)'];

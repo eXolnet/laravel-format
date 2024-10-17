@@ -23,7 +23,7 @@ class PercentageFormatTest extends TestCase
     /**
      * @return array
      */
-    public function provideTestPercentage()
+    public static function provideTestPercentage()
     {
         return [
             [0.00, 0, '0%'],

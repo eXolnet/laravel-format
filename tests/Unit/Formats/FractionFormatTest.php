@@ -23,7 +23,7 @@ class FractionFormatTest extends TestCase
     /**
      * @return array
      */
-    public function provideTestFraction()
+    public static function provideTestFraction()
     {
         return [
             [0.25, 2, '1/2'],
@@ -70,7 +70,7 @@ class FractionFormatTest extends TestCase
     /**
      * @return array
      */
-    public function provideTestFractionSimplified()
+    public static function provideTestFractionSimplified()
     {
         return [
             [0.25, 2, '1/2'],
