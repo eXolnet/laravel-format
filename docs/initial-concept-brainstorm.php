@@ -58,7 +58,7 @@ Format::for(1234.56)->number(2); // 1 234,56
 format(1234.56)->number(2); // 1 234,56
 
 Format::macro('markdown', function ($text) {
-    return (new Parsedown)->text($text);
+    return (new Parsedown())->text($text);
 });
 
 Format::macro('boolean', function (bool $value) {
