@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Exolnet\Format\Facades\Format;
 use Exolnet\Format\Formats\LocalizedFormat;
 use Generator;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class FormatTest extends TestCase
 {
@@ -25,8 +26,8 @@ class FormatTest extends TestCase
      * @param callable $callback
      * @param string $expected
      * @return void
-     * @dataProvider provideTestFormats
      */
+    #[DataProvider('provideTestFormats')]
     public function testFormats(callable $callback, string $expected): void
     {
         $format = $callback();

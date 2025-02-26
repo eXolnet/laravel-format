@@ -3,6 +3,7 @@
 namespace Exolnet\Format\Tests\Unit\Formats;
 
 use Exolnet\Format\Formats\NumberFormat;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class NumberFormatTest extends TestCase
@@ -11,8 +12,8 @@ class NumberFormatTest extends TestCase
      * @param float $value
      * @param int $places
      * @param string $expected
-     * @dataProvider provideTestNumber
      */
+    #[DataProvider('provideTestNumber')]
     public function testNumber(float $value, int $places, string $expected)
     {
         $format = new NumberFormat($value, $places);
