@@ -3,6 +3,7 @@
 namespace Exolnet\Format\Tests\Unit\Formats;
 
 use Exolnet\Format\Formats\PercentageFormat;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class PercentageFormatTest extends TestCase
@@ -11,8 +12,8 @@ class PercentageFormatTest extends TestCase
      * @param float $value
      * @param int $places
      * @param string $expected
-     * @dataProvider provideTestPercentage
      */
+    #[DataProvider('provideTestPercentage')]
     public function testPercentage(float $value, int $places, string $expected)
     {
         $format = new PercentageFormat($value, $places);

@@ -9,7 +9,6 @@ class NullFormatTest extends TestCase
 {
     /**
      * @return void
-     * @test
      */
     public function testReturnsAnEmptyString(): void
     {
@@ -20,7 +19,6 @@ class NullFormatTest extends TestCase
 
     /**
      * @return void
-     * @test
      */
     public function testEmptyTextCanBeDefined(): void
     {
@@ -31,7 +29,6 @@ class NullFormatTest extends TestCase
 
     /**
      * @return void
-     * @test
      */
     public function testAllMethodsAreProxied(): void
     {

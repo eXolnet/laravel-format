@@ -3,6 +3,7 @@
 namespace Exolnet\Format\Tests\Unit\Formats;
 
 use Exolnet\Format\Formats\FractionFormat;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class FractionFormatTest extends TestCase
@@ -11,8 +12,8 @@ class FractionFormatTest extends TestCase
      * @param float $value
      * @param int $denominator
      * @param string $expected
-     * @dataProvider provideTestFraction
      */
+    #[DataProvider('provideTestFraction')]
     public function testFraction(float $value, int $denominator, string $expected)
     {
         $format = new FractionFormat($value, $denominator);
@@ -58,8 +59,8 @@ class FractionFormatTest extends TestCase
      * @param float $value
      * @param int $denominator
      * @param string $expected
-     * @dataProvider provideTestFractionSimplified
      */
+    #[DataProvider('provideTestFractionSimplified')]
     public function testFractionSimplified(float $value, int $denominator, string $expected)
     {
         $format = (new FractionFormat($value, $denominator))->simplified();
