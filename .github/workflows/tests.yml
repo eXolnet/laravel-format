@@ -23,8 +23,6 @@ jobs:
             phpunit: 12.*
           - laravel: 13.*
             phpunit: 11.*
-          - laravel: 13.*
-            php: 8.3
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - U${{ matrix.phpunit }} - ${{ matrix.dependency-version }}
 
